@@ -1,6 +1,8 @@
 const { validationResult } = require('express-validator');
 const cloudinary = require('cloudinary').v2;
 const Book = require('../models/book.model');
+const https = require("https");
+const { URL } = require("url");
 
 // Create a new book
 exports.createBook = async (req, res) => {
@@ -71,6 +73,8 @@ exports.createBook = async (req, res) => {
     const book = new Book(bookData);
     await book.save();
 
+
+
     // Populate the createdBy field
     await book.populate('createdBy', 'name username');
 
@@ -79,6 +83,10 @@ exports.createBook = async (req, res) => {
       message: 'Book created successfully',
       data: { book }
     });
+
+
+    console.log("PDF Upload Result:",);
+
 
   } catch (error) {
     console.error('Create book error:', error);
@@ -175,6 +183,18 @@ exports.getAllBooks = async (req, res) => {
       success: false,
       message: 'Server error while fetching books'
     });
+  }
+};
+
+
+// @desc Get all unique genres
+exports.getAllGenres = async (req, res) => {
+  try {
+    const genres = await Book.distinct("genre");
+    res.status(200).json({ success: true, genres });
+  } catch (error) {
+    console.error("Error fetching genres:", error);
+    res.status(500).json({ success: false, message: "Failed to get genres" });
   }
 };
 
@@ -357,6 +377,7 @@ exports.deleteBook = async (req, res) => {
 };
 
 // Download PDF (increment download count)
+// Download PDF and increment download count
 exports.downloadPDF = async (req, res) => {
   try {
     const { id } = req.params;
@@ -366,34 +387,46 @@ exports.downloadPDF = async (req, res) => {
     // For public API, only allow downloading public and published books
     if (!req.admin) {
       query.isPublic = true;
-      query.status = 'published';
+      query.status = "published";
     }
 
     const book = await Book.findOne(query);
-
     if (!book) {
       return res.status(404).json({
         success: false,
-        message: 'Book not found or not available for download'
+        message: "Book not found or not available for download",
       });
     }
 
     // Increment download count
     await Book.findByIdAndUpdate(id, { $inc: { downloadCount: 1 } });
 
-    res.status(200).json({
-      success: true,
-      data: {
-        downloadUrl: book.pdfFile.url,
-        filename: book.pdfFile.filename
-      }
-    });
+    const fileUrl = book.pdfFile.url;
+    const filename = book.pdfFile.filename || `${book.title}.pdf`;
 
+    const parsedUrl = new URL(fileUrl);
+
+    https
+      .get(parsedUrl, (fileRes) => {
+        res.setHeader("Content-Type", "application/pdf");
+        res.setHeader(
+          "Content-Disposition",
+          `attachment; filename="${filename}"`
+        );
+        fileRes.pipe(res);
+      })
+      .on("error", (err) => {
+        console.error("Cloudinary download error:", err);
+        res.status(500).json({
+          success: false,
+          message: "Error downloading file from Cloudinary",
+        });
+      });
   } catch (error) {
-    console.error('Download PDF error:', error);
+    console.error("Download PDF error:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error while processing download'
+      message: "Server error while processing download",
     });
   }
 };

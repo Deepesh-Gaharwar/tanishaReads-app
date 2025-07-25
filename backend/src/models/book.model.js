@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
@@ -72,9 +73,9 @@ const bookSchema = new mongoose.Schema({
     trim: true
   }],
   status: {
-    type: String,
-    enum: ['draft', 'published', 'archived'],
-    default: 'published'
+  type: String,
+  enum: ['draft', 'published', 'archived'],
+  default: 'published'
   },
   isPublic: {
     type: Boolean,

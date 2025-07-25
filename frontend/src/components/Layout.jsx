@@ -1,18 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "./NavBar";
-import Footer from "./Footer";
+import Footer from "./Footer"; // Import Footer
 
 const Layout = () => {
   return (
-    <div className="min-h-screen bg-literature-gradient font-serif flex flex-col justify-between">
-      <div>
-        <NavBar />
-        <main className="px-4 md:px-8 py-6">
-          <Outlet />
-        </main>
-      </div>
-      <Footer />
+    <div className="min-h-screen flex flex-col bg-background font-serif">
+      <NavBar />
+      <main className="flex-grow p-4 max-w-6xl mx-auto">
+        <Outlet />
+      </main>
+      <Footer />  {/* Footer added here */}
     </div>
   );
 };

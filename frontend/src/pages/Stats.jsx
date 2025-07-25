@@ -1,136 +1,193 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "../utils/axiosInstance";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import BookCardAdmin from "../components/BookCardAdmin";
 import BookModal from "../components/BookModal";
 
 const Stats = () => {
-  const user = useSelector((state) => state.user.user);
-  const navigate = useNavigate();
-
+  const user = useSelector((state) => state.user);
   const [books, setBooks] = useState([]);
-  const [stats, setStats] = useState({});
-  const [filters, setFilters] = useState({ title: "", author: "", genre: "", visibility: "" });
-  const [modal, setModal] = useState({ open: false, type: "", book: null });
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [genres, setGenres] = useState([]);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState({ genre: "", visibility: "" });
+  const [modal, setModal] = useState({ isOpen: false, type: "", book: null });
+  const [pagination, setPagination] = useState({ page: 1, totalPages: 1 });
+  const [loading, setLoading] = useState(false);
 
-  const fetchBooks = async () => {
+  const fetchBooks = useCallback(async () => {
+    if (!user?.token) return;
+    setLoading(true);
     try {
-      let url = `/api/books?limit=5&page=${page}`;
-      if (filters.title) url += `&title=${filters.title}`;
-      if (filters.author) url += `&author=${filters.author}`;
-      if (filters.genre) url += `&genre=${filters.genre}`;
-      if (filters.visibility) url += `&visibility=${filters.visibility}`;
+      const { data } = await axios.get("/api/books", {
+        params: {
+            search: search || undefined,
+            genre: filter.genre || undefined,
+            status: filter.visibility || undefined,
+            page: pagination.page,
+        },
 
-      const { data } = await axios.get(url);
-      setBooks(data.books);
-      setTotalPages(data.totalPages || 1);
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setBooks(data?.data?.books || []);
+      setPagination({
+        page: data?.data?.pagination?.currentPage || 1,
+        totalPages: data?.data?.pagination?.totalPages || 1,
+      });
     } catch (err) {
-      toast.error("Failed to fetch books");
+      console.error("Error fetching books:", err);
+    } finally {
+      setLoading(false);
     }
+  }, [search, filter, pagination.page, user?.token]);
+
+ const fetchGenres = useCallback(async () => {
+  if (!user?.token) return;
+  try {
+    const { data } = await axios.get("/api/books/genres", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    setGenres(data?.genres || []);
+  } catch (err) {
+    console.error("Error fetching genres:", err);
+  }
+}, [user?.token]);
+
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
-  const fetchStats = async () => {
-    try {
-      const { data } = await axios.get("/api/books/stats");
-      setStats(data);
-    } catch (err) {
-      toast.error("Failed to fetch stats");
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= pagination.totalPages) {
+      setPagination((prev) => ({ ...prev, page: newPage }));
     }
   };
 
   useEffect(() => {
-    if (!user?.isAdmin) return navigate("/");
-    fetchBooks();
-    fetchStats();
-  }, [page, filters]);
+    fetchGenres();
+  }, [fetchGenres]);
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`/api/books/${id}`);
-      toast.success("Book deleted");
-      fetchBooks();
-    } catch {
-      toast.error("Error deleting");
-    }
-  };
+  useEffect(() => {
+    fetchBooks();
+  }, [fetchBooks]);
+
+  useEffect(() => {
+    setPagination((prev) => ({ ...prev, page: 1 }));
+  }, [filter.genre, filter.visibility]);
 
   return (
-    <div className="p-4 space-y-6">
-      {/* Top Stats */}
-      <div className="stats shadow w-full">
-        <div className="stat">
-          <div className="stat-title">Total Uploads</div>
-          <div className="stat-value">{stats.totalUploads}</div>
-        </div>
-        <div className="stat">
-          <div className="stat-title">Total Downloads</div>
-          <div className="stat-value">{stats.totalDownloads}</div>
-        </div>
-      </div>
+    <div className="p-4 md:p-8">
+      <h2 className="text-2xl font-bold mb-4">📊 Admin Dashboard</h2>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-4">
-        <input className="input input-bordered" placeholder="Search Title" onChange={(e) => setFilters({ ...filters, title: e.target.value })} />
-        <input className="input input-bordered" placeholder="Author" onChange={(e) => setFilters({ ...filters, author: e.target.value })} />
-        <input className="input input-bordered" placeholder="Genre" onChange={(e) => setFilters({ ...filters, genre: e.target.value })} />
-        <select className="select select-bordered" onChange={(e) => setFilters({ ...filters, visibility: e.target.value })}>
-          <option value="">All</option>
-          <option value="public">Public</option>
-          <option value="private">Private</option>
+      <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-4 gap-2 mb-4">
+        <input
+          type="text"
+          placeholder="Search by title"
+          className="input input-bordered"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          aria-label="Search by book title"
+        />
+
+        <select
+          className="select select-bordered"
+          value={filter.genre}
+          onChange={(e) => setFilter({ ...filter, genre: e.target.value })}
+          aria-label="Filter by genre"
+        >
+          <option value="">All Genres</option>
+          {genres.length > 0 ? (
+            genres.map((genre, idx) => (
+              <option key={idx} value={genre}>
+                {genre}
+              </option>
+            ))
+          ) : (
+            <option disabled>Loading genres...</option>
+          )}
         </select>
+
+        <select
+              className="select select-bordered"
+              value={filter.visibility}
+              onChange={(e) => setFilter({ ...filter, visibility: e.target.value })}
+              aria-label="Filter by status"
+            >
+              <option value="">All Status</option>
+              <option value="published">Published</option>
+              <option value="draft">Draft</option>
+              <option value="archived">Archived</option>
+        </select>
+
+
+        <button type="submit" className="btn btn-primary w-full" disabled={loading}>
+          {loading ? "Loading..." : "Search"}
+        </button>
+      </form>
+
+      {/* Stats Summary */}
+      <div className="flex flex-wrap gap-4 mb-4">
+        <div className="stats shadow">
+          <div className="stat">
+            <div className="stat-title">Total Work Uploads</div>
+            <div className="stat-value">{books.length}</div>
+          </div>
+        </div>
       </div>
 
-      {/* Book List */}
-      <div className="overflow-x-auto">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Status</th>
-              <th>Visibility</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {books?.map((book) => (
-              <tr key={book._id}>
-                <td>{book.title}</td>
-                <td>{book.author}</td>
-                <td>{book.status}</td>
-                <td>{book.visibility}</td>
-                <td className="flex gap-1 flex-wrap">
-                  <button className="btn btn-xs btn-info" onClick={() => setModal({ open: true, type: "view", book })}>View</button>
-                  <button className="btn btn-xs btn-success" onClick={() => setModal({ open: true, type: "edit", book })}>Edit</button>
-                  <button className="btn btn-xs btn-warning" onClick={() => setModal({ open: true, type: "status", book })}>Status</button>
-                  <button className="btn btn-xs btn-accent" onClick={() => setModal({ open: true, type: "toggle", book })}>Toggle</button>
-                  <button className="btn btn-xs btn-error" onClick={() => setModal({ open: true, type: "delete", book })}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {/* Book Cards */}
+      {loading ? (
+        <p>Loading books...</p>
+      ) : books.length === 0 ? (
+        <p>No books found.</p>
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {books.map((book) => (
+            <BookCardAdmin
+              key={book._id}
+              book={book}
+              onView={() => setModal({ isOpen: true, type: "view", book })}
+              onEdit={() => setModal({ isOpen: true, type: "edit", book })}
+              onDelete={() => setModal({ isOpen: true, type: "delete", book })}
+              onToggleVisibility={() => setModal({ isOpen: true, type: "toggle", book })}
+              onUpdateStatus={(updatedBook) => setModal({ isOpen: true, type: "status", book: updatedBook })
+}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Pagination */}
-      <div className="join mt-4">
-        {Array.from({ length: totalPages }).map((_, i) => (
-          <button key={i} onClick={() => setPage(i + 1)} className={`join-item btn btn-sm ${page === i + 1 ? "btn-primary" : ""}`}>{i + 1}</button>
-        ))}
+      <div className="flex justify-center mt-6 gap-2">
+        <button
+          className="btn btn-outline"
+          onClick={() => handlePageChange(pagination.page - 1)}
+          disabled={pagination.page === 1 || loading}
+          aria-label="Previous page"
+        >
+          Prev
+        </button>
+        <span className="px-4 py-2">
+          Page {pagination.page} of {pagination.totalPages}
+        </span>
+        <button
+          className="btn btn-outline"
+          onClick={() => handlePageChange(pagination.page + 1)}
+          disabled={pagination.page === pagination.totalPages || loading}
+          aria-label="Next page"
+        >
+          Next
+        </button>
       </div>
 
       {/* Modal */}
-      {modal.open && (
-        <BookModal
-          modal={modal}
-          setModal={setModal}
-          refresh={fetchBooks}
-          handleDelete={handleDelete}
-        />
-      )}
+      <BookModal modal={modal} setModal={setModal} refresh={fetchBooks} />
     </div>
   );
 };

@@ -1,3 +1,4 @@
+
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const cloudinary = require('cloudinary').v2;
@@ -109,6 +110,7 @@ const handleFileUploads = (req, res, next) => {
         const coverImageResult = await new Promise((resolve, reject) => {
           const uploadStream = cloudinary.uploader.upload_stream(
             {
+              resource_type :'auto',
               folder: 'book-covers',
               allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
               transformation: [

@@ -1,11 +1,13 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
-import { persistStore, persistReducer } from "redux-persist";
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage
 
 const persistConfig = {
   key: "root",
   storage,
+  // Optionally whitelist only `user` slice if you add more slices
+  // whitelist: ['user'],
 };
 
 const rootReducer = combineReducers({
@@ -18,8 +20,11 @@ const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false,
-    }), // ✅ no need to add thunk again
+      serializableCheck: {
+        // Ignore these redux-persist action types to avoid false non-serializable warnings
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);

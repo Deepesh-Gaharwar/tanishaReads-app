@@ -1,46 +1,86 @@
+// src/pages/Home.jsx
+
 import React, { useEffect, useState } from "react";
 import axios from "../utils/axiosInstance";
-import { Link } from "react-router-dom";
+import { Loader } from "lucide-react";
+import BookCardPublic from "../components/BookCardPublic";
+
+const genresList = ["All", "Poetry", "Writings", "Thoughts", "Others"];
 
 const Home = () => {
   const [books, setBooks] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [genre, setGenre] = useState("All");
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
   const fetchBooks = async () => {
     try {
-      const res = await axios.get("/api/books");
-      const booksArray = res.data?.data?.books;
+      const { data } = await axios.get("/api/books");
+      const booksArray = data?.data?.books || data?.books || [];
 
-      if (Array.isArray(booksArray)) {
-        setBooks(booksArray);
-      } else {
-        console.error("Unexpected response format:", res.data);
-      }
+      // ✅ Filter only public and published books
+      const visibleBooks = booksArray.filter(
+        (book) => book.status === "published" && book.isPublic === true
+      );
+
+      setBooks(visibleBooks);
+      setFiltered(visibleBooks);
     } catch (err) {
-      console.error("Error fetching books:", err);
+      console.error("Failed to fetch books", err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  fetchBooks();
-}, []);
+  useEffect(() => {
+    fetchBooks();
+  }, []);
 
+  useEffect(() => {
+    let result = [...books];
+    if (genre !== "All") {
+      result = result.filter(
+        (b) => (b.genre || "").toLowerCase() === genre.toLowerCase()
+      );
+    }
+    setFiltered(result);
+  }, [genre, books]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64" aria-live="polite" role="status">
+        <Loader className="w-8 h-8 animate-spin text-primary" />
+        <span className="sr-only">Loading books...</span>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-6 text-white">
-      <h1 className="text-4xl font-bold mb-6">📚 Explore Literary Treasures</h1>
+    <div className="max-w-6xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold text-center mb-6 text-primary font-serif">
+        The Writer's Library
+      </h1>
 
-      {books.length === 0 ? (
-        <p>No books found.</p>
+      <div className="flex flex-wrap justify-center gap-3 mb-6">
+        {genresList.map((g) => (
+          <button
+            key={g}
+            onClick={() => setGenre(g)}
+            className={`btn btn-sm ${genre === g ? "btn-primary" : "btn-outline"}`}
+            aria-pressed={genre === g}
+            aria-label={`Filter by genre ${g}`}
+          >
+            {g}
+          </button>
+        ))}
+      </div>
+
+      {filtered.length === 0 ? (
+        <p className="text-center text-gray-500">No writings found.</p>
       ) : (
-        <div className="grid md:grid-cols-3 gap-4">
-          {books.map((book) => (
-            <div key={book._id} className="bg-primary p-4 rounded-xl shadow-lg">
-              <h2 className="text-xl font-semibold">{book.title}</h2>
-              <p className="text-sm italic">{book.author}</p>
-              <Link to={`/book/${book._id}`} className="btn btn-sm mt-4 btn-accent">
-                Read More
-              </Link>
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filtered.map((book) => (
+            <BookCardPublic key={book._id} book={book} />
           ))}
         </div>
       )}
