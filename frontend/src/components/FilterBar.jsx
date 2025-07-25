@@ -22,64 +22,74 @@ const FilterBar = ({
   };
 
   return (
-    <div className="flex flex-wrap gap-4 mb-4 items-center">
-      <input
-        type="text"
-        placeholder="Search by title"
-        name="search"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="input input-bordered"
-        aria-label="Search by title"
-      />
+    <div className="bg-gradient-to-r from-purple-900 via-purple-800 to-purple-900 p-6 rounded-2xl shadow-2xl mb-8">
+      <div className="flex flex-wrap gap-4 items-center">
+        <div className="flex-1 min-w-64">
+          <input
+            type="text"
+            placeholder="Search by title"
+            name="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-full px-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300"
+            aria-label="Search by title"
+          />
+        </div>
 
-      <select
-        name="genre"
-        value={genre}
-        onChange={(e) => setGenre(e.target.value)}
-        className="select select-bordered"
-        aria-label="Filter by genre"
-      >
-        <option value="">All Genres</option>
-        {genres.map((g) => (
-          <option key={g} value={g}>
-            {g}
-          </option>
-        ))}
-      </select>
+        <div className="min-w-40">
+          <select
+            name="genre"
+            value={genre}
+            onChange={(e) => setGenre(e.target.value)}
+            className="w-full px-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300 appearance-none cursor-pointer"
+            aria-label="Filter by genre"
+          >
+            <option value="" className="bg-purple-900 text-white">All Genres</option>
+            {genres.map((g) => (
+              <option key={g} value={g} className="bg-purple-900 text-white">
+                {g}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <select
-        name="author"
-        value={author || ""}
-        onChange={(e) => setAuthor && setAuthor(e.target.value)}
-        className="select select-bordered"
-        aria-label="Filter by author"
-      >
-        <option value="">All Authors</option>
-        {authors.map((a) => (
-          <option key={a} value={a}>
-            {a}
-          </option>
-        ))}
-      </select>
+        <div className="min-w-40">
+          <select
+            name="author"
+            value={author || ""}
+            onChange={(e) => setAuthor && setAuthor(e.target.value)}
+            className="w-full px-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300 appearance-none cursor-pointer"
+            aria-label="Filter by author"
+          >
+            <option value="" className="bg-purple-900 text-white">All Authors</option>
+            {authors.map((a) => (
+              <option key={a} value={a} className="bg-purple-900 text-white">
+                {a}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <select
-        name="visibility"
-        value={
-          visibility === true
-            ? "visible"
-            : visibility === false
-            ? "hidden"
-            : ""
-        }
-        onChange={handleVisibilityChange}
-        className="select select-bordered"
-        aria-label="Filter by visibility"
-      >
-        <option value="">All</option>
-        <option value="visible">Visible</option>
-        <option value="hidden">Hidden</option>
-      </select>
+        <div className="min-w-40">
+          <select
+            name="visibility"
+            value={
+              visibility === true
+                ? "visible"
+                : visibility === false
+                ? "hidden"
+                : ""
+            }
+            onChange={handleVisibilityChange}
+            className="w-full px-4 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300 appearance-none cursor-pointer"
+            aria-label="Filter by visibility"
+          >
+            <option value="" className="bg-purple-900 text-white">All</option>
+            <option value="visible" className="bg-purple-900 text-white">Visible</option>
+            <option value="hidden" className="bg-purple-900 text-white">Hidden</option>
+          </select>
+        </div>
+      </div>
     </div>
   );
 };

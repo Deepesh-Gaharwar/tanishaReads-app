@@ -50,63 +50,74 @@ const EditBookModal = ({ book, isOpen, onClose, onUpdated }) => {
 
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50" aria-modal="true" role="dialog">
-      <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="w-full max-w-lg bg-white dark:bg-base-100 p-6 rounded-xl shadow-xl">
-          <Dialog.Title className="text-xl font-bold mb-4">Edit Book</Dialog.Title>
+        <Dialog.Panel className="w-full max-w-lg bg-gradient-to-br from-purple-900 via-purple-800 to-purple-900 p-6 rounded-2xl shadow-2xl border border-purple-700/30 max-h-[90vh] overflow-y-auto">
+          <Dialog.Title className="text-xl font-bold mb-6 text-white">Edit Book</Dialog.Title>
 
-          <div className="form-control mb-3">
-            <label className="label" htmlFor="title">Title</label>
-            <input
-              id="title"
-              type="text"
-              className="input input-bordered"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              disabled={loading}
-            />
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <label className="block text-purple-200 text-sm font-medium" htmlFor="title">Title</label>
+              <input
+                id="title"
+                type="text"
+                className="w-full bg-purple-800/30 border border-purple-600/30 rounded-lg px-3 py-3 text-white placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 transition-all duration-200 disabled:opacity-50"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-purple-200 text-sm font-medium" htmlFor="author">Author</label>
+              <input
+                id="author"
+                type="text"
+                className="w-full bg-purple-800/30 border border-purple-600/30 rounded-lg px-3 py-3 text-white placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 transition-all duration-200 disabled:opacity-50"
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-purple-200 text-sm font-medium" htmlFor="genre">Genre</label>
+              <input
+                id="genre"
+                type="text"
+                className="w-full bg-purple-800/30 border border-purple-600/30 rounded-lg px-3 py-3 text-white placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 transition-all duration-200 disabled:opacity-50"
+                value={genre}
+                onChange={(e) => setGenre(e.target.value)}
+                disabled={loading}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-purple-200 text-sm font-medium" htmlFor="description">Description</label>
+              <textarea
+                id="description"
+                rows="4"
+                className="w-full bg-purple-800/30 border border-purple-600/30 rounded-lg px-3 py-3 text-white placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 transition-all duration-200 resize-none disabled:opacity-50"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                disabled={loading}
+              />
+            </div>
           </div>
 
-          <div className="form-control mb-3">
-            <label className="label" htmlFor="author">Author</label>
-            <input
-              id="author"
-              type="text"
-              className="input input-bordered"
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
+          <div className="flex gap-3 mt-6">
+            <button 
+              className="flex-1 bg-purple-600/50 hover:bg-purple-600 text-white px-4 py-3 rounded-lg font-medium transition-all duration-200 border border-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed" 
+              onClick={onClose} 
               disabled={loading}
-            />
-          </div>
-
-          <div className="form-control mb-3">
-            <label className="label" htmlFor="genre">Genre</label>
-            <input
-              id="genre"
-              type="text"
-              className="input input-bordered"
-              value={genre}
-              onChange={(e) => setGenre(e.target.value)}
-              disabled={loading}
-            />
-          </div>
-
-          <div className="form-control mb-4">
-            <label className="label" htmlFor="description">Description</label>
-            <textarea
-              id="description"
-              className="textarea textarea-bordered"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              disabled={loading}
-            />
-          </div>
-
-          <div className="flex justify-end gap-2">
-            <button className="btn" onClick={onClose} disabled={loading}>
+            >
               Cancel
             </button>
-            <button className="btn btn-primary" onClick={handleUpdate} disabled={loading}>
+            <button 
+              className="flex-1 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-4 py-3 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-pink-500/25 disabled:opacity-50 disabled:cursor-not-allowed" 
+              onClick={handleUpdate} 
+              disabled={loading}
+            >
               {loading ? "Updating..." : "Save Changes"}
             </button>
           </div>

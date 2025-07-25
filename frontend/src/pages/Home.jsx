@@ -48,42 +48,65 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64" aria-live="polite" role="status">
-        <Loader className="w-8 h-8 animate-spin text-primary" />
-        <span className="sr-only">Loading books...</span>
+      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 flex justify-center items-center" aria-live="polite" role="status">
+        <div className="flex flex-col items-center space-y-4">
+          <Loader className="w-12 h-12 animate-spin text-purple-300" />
+          <span className="text-purple-200 text-lg font-medium">Loading books...</span>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-6 text-primary font-serif">
-        The Writer's Library
-      </h1>
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900">
+      <div className="w-full px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        {/* Header Section */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 font-serif tracking-tight">
+            The Writer's Library
+          </h1>
+          <p className="text-purple-200 text-lg sm:text-xl max-w-2xl mx-auto">
+            Discover beautiful stories, poetry, and thoughts from talented writers
+          </p>
+        </div>
 
-      <div className="flex flex-wrap justify-center gap-3 mb-6">
-        {genresList.map((g) => (
-          <button
-            key={g}
-            onClick={() => setGenre(g)}
-            className={`btn btn-sm ${genre === g ? "btn-primary" : "btn-outline"}`}
-            aria-pressed={genre === g}
-            aria-label={`Filter by genre ${g}`}
-          >
-            {g}
-          </button>
-        ))}
-      </div>
-
-      {filtered.length === 0 ? (
-        <p className="text-center text-gray-500">No writings found.</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((book) => (
-            <BookCardPublic key={book._id} book={book} />
+        {/* Genre Filter Buttons */}
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-12">
+          {genresList.map((g) => (
+            <button
+              key={g}
+              onClick={() => setGenre(g)}
+              className={`
+                px-6 py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 transform hover:scale-105
+                ${genre === g 
+                  ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg shadow-purple-500/25" 
+                  : "bg-white/10 backdrop-blur-sm text-purple-200 border border-purple-400/30 hover:bg-white/20 hover:text-white"
+                }
+              `}
+              aria-pressed={genre === g}
+              aria-label={`Filter by genre ${g}`}
+            >
+              {g}
+            </button>
           ))}
         </div>
-      )}
+
+        {/* Books Grid */}
+        {filtered.length === 0 ? (
+          <div className="text-center py-16">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-md mx-auto border border-purple-400/20">
+              <p className="text-purple-200 text-lg">No writings found in this category.</p>
+              <p className="text-purple-300 text-sm mt-2">Try selecting a different genre or check back later.</p>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 sm:gap-10">
+            {filtered.map((book) => (
+              <BookCardPublic key={book._id} book={book} />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -64,75 +64,88 @@ const BookCardAdmin = ({
   const getStatusBadgeClass = (status) => {
     switch (status) {
       case "published":
-        return "badge-success";
+        return "bg-green-100 text-green-800 border-green-200";
       case "archived":
-        return "badge-warning";
+        return "bg-amber-100 text-amber-800 border-amber-200";
       case "draft":
       default:
-        return "badge-neutral";
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
 
   return (
-    <div className="card bg-base-100 shadow-lg p-4">
-      <figure>
+    <div className="bg-gradient-to-br from-purple-900 via-purple-800 to-purple-900 rounded-2xl shadow-2xl p-4 sm:p-6 hover:shadow-purple-500/25 transition-all duration-300 hover:scale-[1.02] border border-purple-700/30">
+      <figure className="mb-4">
         <img
           src={book.coverImage?.url || ""}
           alt={book.title}
-          className="h-48 object-cover w-full rounded"
+          className="h-48 object-cover w-full rounded-xl shadow-lg"
         />
       </figure>
-      <div className="card-body">
-        <h2 className="card-title text-primary">{book.title}</h2>
-        <p className="text-sm text-gray-500">By {book.author}</p>
-        <p className="text-xs">Genre: {book.genre}</p>
-        <p className="text-xs">
-          Status:{" "}
-          <span className={`badge ${getStatusBadgeClass(book.status)}`}>
-            {book.status}
-          </span>
-        </p>
-        <p className="text-xs">
-          Visibility:{" "}
-          <span
-            className={`badge ${book.isPublic ? "badge-info" : "badge-neutral"}`}
-          >
-            {book.isPublic ? "Public" : "Private"}
-          </span>
-        </p>
+      
+      <div className="space-y-4">
+        <div>
+          <h2 className="text-xl font-bold text-white mb-2 line-clamp-2">{book.title}</h2>
+          <p className="text-sm text-purple-200 mb-1">By {book.author}</p>
+          <p className="text-xs text-purple-300">Genre: {book.genre}</p>
+        </div>
 
-        <div className="flex flex-wrap gap-2 mt-4">
+        <div className="flex flex-wrap gap-2">
+          <span className="text-xs text-purple-300">
+            Status:{" "}
+            <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusBadgeClass(book.status)}`}>
+              {book.status}
+            </span>
+          </span>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <span className="text-xs text-purple-300">
+            Visibility:{" "}
+            <span
+              className={`px-2 py-1 rounded-full text-xs font-medium border ${
+                book.isPublic 
+                  ? "bg-blue-100 text-blue-800 border-blue-200" 
+                  : "bg-gray-100 text-gray-800 border-gray-200"
+              }`}
+            >
+              {book.isPublic ? "Public" : "Private"}
+            </span>
+          </span>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
           <button
-            className="btn btn-sm btn-primary"
+            className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
             onClick={() => onView(book)}
             aria-label={`View ${book.title}`}
           >
             <Eye className="w-4 h-4" /> View
           </button>
+          
           <button
-            className="btn btn-sm btn-accent"
+            className="bg-purple-700 hover:bg-purple-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
             onClick={() => onEdit(book)}
             aria-label={`Edit ${book.title}`}
           >
             <Edit className="w-4 h-4" /> Edit
           </button>
+          
           <button
-            className="btn btn-sm btn-error"
+            className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
             onClick={() => onDelete(book)}
             aria-label={`Delete ${book.title}`}
           >
             <Trash2 className="w-4 h-4" /> Delete
           </button>
 
-          {/* Toggle Visibility (Always available) */}
           <button
-            className="btn btn-sm btn-warning"
+            className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
             onClick={handleToggleVisibility}
             disabled={isTogglingVisibility}
             aria-label="Toggle Visibility"
           >
             {book.isPublic ? <EyeOff className="w-4 h-4" /> : <EyeIcon className="w-4 h-4" />}
-            {/* {book.isPublic ? "Make Private" : "Make Public"} */}
             Toggle Visibility
           </button>
 
@@ -140,7 +153,7 @@ const BookCardAdmin = ({
           {book.status === "draft" && (
             <>
               <button
-                className="btn btn-sm btn-success"
+                className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
                 onClick={() => handleUpdateStatus("published")}
                 disabled={isUpdatingStatus}
                 aria-label="Publish"
@@ -148,7 +161,7 @@ const BookCardAdmin = ({
                 <CheckCheck className="w-4 h-4" /> Publish
               </button>
               <button
-                className="btn btn-sm btn-warning"
+                className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
                 onClick={() => handleUpdateStatus("archived")}
                 disabled={isUpdatingStatus}
                 aria-label="Archive"
@@ -161,7 +174,7 @@ const BookCardAdmin = ({
           {book.status === "published" && (
             <>
               <button
-                className="btn btn-sm btn-neutral"
+                className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
                 onClick={() => handleUpdateStatus("draft")}
                 disabled={isUpdatingStatus}
                 aria-label="Mark Draft"
@@ -169,7 +182,7 @@ const BookCardAdmin = ({
                 <CheckCheck className="w-4 h-4" /> Mark Draft
               </button>
               <button
-                className="btn btn-sm btn-warning"
+                className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
                 onClick={() => handleUpdateStatus("archived")}
                 disabled={isUpdatingStatus}
                 aria-label="Archive"
@@ -182,7 +195,7 @@ const BookCardAdmin = ({
           {book.status === "archived" && (
             <>
               <button
-                className="btn btn-sm btn-success"
+                className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
                 onClick={() => handleUpdateStatus("published")}
                 disabled={isUpdatingStatus}
                 aria-label="Publish"
@@ -190,7 +203,7 @@ const BookCardAdmin = ({
                 <CheckCheck className="w-4 h-4" /> Publish
               </button>
               <button
-                className="btn btn-sm btn-neutral"
+                className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
                 onClick={() => handleUpdateStatus("draft")}
                 disabled={isUpdatingStatus}
                 aria-label="Mark Draft"
@@ -201,7 +214,7 @@ const BookCardAdmin = ({
           )}
 
           <button
-            className="btn btn-sm btn-outline"
+            className="bg-purple-600/50 hover:bg-purple-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 border border-purple-500/30"
             onClick={handleDownload}
             aria-label={`Download ${book.title}`}
             disabled={isDownloading}
