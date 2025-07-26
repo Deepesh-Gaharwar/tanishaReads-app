@@ -16,7 +16,7 @@ const Footer = () => {
         {/* Center - Copyright */}
         <div className="text-center">
           <p className="text-white/90 text-sm md:text-base font-light tracking-wide">
-            &copy; {new Date().getFullYear()} TanishaReads
+            &copy; {new Date().getFullYear()} . All Rights Reserved - TanishaReads
           </p>
         </div>
         
