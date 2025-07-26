@@ -167,20 +167,20 @@ const Login = () => {
                 <label className="flex items-center text-gray-300 cursor-pointer">
                   <input
                     type="checkbox"
-                    className="mr-3 w-4 h-4 rounded border-gray-600 bg-white/10 text-purple-500 focus:ring-purple-500"
+                    className="mr-3 w-4 h-4 rounded border-gray-600 bg-white/10 text-purple-500 focus:ring-purple-500 cursor-pointer"
                   />
                   Remember me
                 </label>
-                <button type="button" className="text-purple-400 hover:text-purple-300 transition-colors font-medium">
+                {/* <button type="button" className="text-purple-400 hover:text-purple-300 transition-colors font-medium">
                   Forgot password?
-                </button>
+                </button> */}
               </div>
 
               {/* Login Button */}
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400 text-white py-4 px-6 rounded-xl font-semibold hover:from-purple-600 hover:via-pink-600 hover:to-cyan-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-3 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="w-full cursor-pointer bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400 text-white py-4 px-6 rounded-xl font-semibold hover:from-purple-600 hover:via-pink-600 hover:to-cyan-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-3 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 aria-busy={isLoading}
               >
                 {isLoading ? (
@@ -190,8 +190,8 @@ const Login = () => {
                   </>
                 ) : (
                   <>
-                    <LogIn className="w-5 h-5" />
-                    <span>Enter the Sanctuary</span>
+                    <LogIn className="w-5 h-5 cursor-pointer" />
+                    <span className="cursor-pointer">Enter the Sanctuary</span>
                   </>
                 )}
               </button>

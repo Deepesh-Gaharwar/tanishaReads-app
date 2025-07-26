@@ -75,10 +75,10 @@ const UploadBook = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 flex items-center justify-center gap-3">
-            <Upload className="w-8 h-8 md:w-10 md:h-10" />
-            Upload Your New Work Here
-          </h2>
-          <p className="text-purple-200">Share your literary work with the world</p>
+  <Upload className="w-8 h-8 md:w-10 md:h-10 flex-shrink-0" />
+  <span className="text-center">Upload Your New Work Here</span>
+</h2>
+<p className="text-purple-200 text-center">Share your literary work with the world</p>
         </div>
 
         {/* Form Container */}

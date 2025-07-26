@@ -10,7 +10,7 @@ const Layout = () => {
       <NavBar />
       
       {/* Main Content Area */}
-      <main className="flex-grow">
+      <main className="flex-grow pt-10 sm:pt-10 md:pt-10">
         <Outlet />
       </main>
       
