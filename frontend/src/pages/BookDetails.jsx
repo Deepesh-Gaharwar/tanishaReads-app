@@ -115,10 +115,10 @@ const BookDetails = () => {
     );
 
   return (
-    <div className="bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 p-4 sm:p-6 pt-8 sm:pt-12 lg:pt-16 pb-8">
+    <div className="bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 p-2 sm:p-4 md:p-6 pt-20 sm:pt-24 md:pt-28 lg:pt-20 pb-8">
       <div className="max-w-7xl mx-auto">
         {/* Book Details Card */}
-        <div className="bg-black/20 backdrop-blur-sm rounded-2xl border border-purple-600/50 shadow-2xl mb-6 overflow-hidden">
+        <div className="bg-black/20 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-purple-600/50 shadow-2xl mb-4 sm:mb-6 overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Cover Image */}
             <div className="relative overflow-hidden bg-black/30">
@@ -133,9 +133,9 @@ const BookDetails = () => {
             </div>
 
             {/* Book Information */}
-            <div className="p-6 sm:p-8 lg:p-10">
+            <div className="p-4 sm:p-6 md:p-8 lg:p-10">
               <div className="mb-6">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 leading-tight">
                   {book.title}
                 </h1>
                 <div className="flex flex-wrap items-center gap-4 mb-4">
@@ -173,9 +173,9 @@ const BookDetails = () => {
         </div>
 
         {/* PDF Preview */}
-        <div className="bg-black/20 backdrop-blur-sm rounded-2xl border border-purple-600/50 shadow-2xl overflow-hidden">
-          <div className="p-6 border-b border-purple-600/30 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-white flex items-center gap-3">
+        <div className="bg-black/20 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-purple-600/50 shadow-2xl overflow-hidden">
+          <div className="p-4 sm:p-6 border-b border-purple-600/30 flex items-center justify-between">
+            <h2 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2 sm:gap-3">
               <div className="w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
               PDF Preview
             </h2>
@@ -189,7 +189,7 @@ const BookDetails = () => {
                 disabled={!book?.pdfFile?.url}
               >
                 <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
-                Open in New Tab
+                <span className="hidden md:inline">Open in New Tab</span>
               </button>
               
               <button
@@ -198,12 +198,12 @@ const BookDetails = () => {
                 aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
               >
                 <Maximize className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
-                {isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+                <span className="hidden md:inline">{isFullscreen ? "Exit Fullscreen" : "Fullscreen"}</span>
               </button>
             </div>
           </div>
           
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             <div className={`${isFullscreen ? 'fixed inset-0 z-50 bg-black p-4' : 'aspect-video'} bg-black/30 rounded-xl overflow-hidden border border-purple-600/30`}>
               <iframe
                 src={book.pdfFile?.url || ""}

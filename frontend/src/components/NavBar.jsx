@@ -74,21 +74,33 @@ const NavBar = () => {
   return (
     <>
       <nav
-        className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-900/95 via-purple-800/95 to-purple-900/95 backdrop-blur-md text-white px-4 sm:px-6 lg:px-8 py-4 shadow-xl border-b border-purple-700/50 transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-900/95 via-purple-800/95 to-purple-900/95 backdrop-blur-md text-white px-4 sm:px-6 lg:px-8  py-4 shadow-xl border-b border-purple-700/50 transition-all duration-300"
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-7xl mx-auto lg:mx-0 lg:max-w-full flex items-center justify-between">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link
-              to="/"
-              className="text-2xl sm:text-3xl font-bold font-serif text-white hover:text-purple-200 transition-colors duration-200"
-              aria-label="Homepage"
-            >
-              TanishaReads
-            </Link>
-          </div>
+<div className="flex-shrink-0">
+  <Link
+    to="/"
+    className="flex items-center space-x-3 text-2xl sm:text-3xl font-bold font-serif text-white hover:text-purple-200 transition-colors duration-200 group"
+    aria-label="Homepage"
+  >
+    <div className="relative">
+      {/* Book Icon with magical elements */}
+      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-400 via-pink-400 to-purple-600 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-purple-400/50 transition-all duration-300 group-hover:scale-105">
+        <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+          <path d="M8 11h8M8 15h5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+        </svg>
+      </div>
+        {/* Sparkle effects */}
+        <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-300 rounded-full opacity-75 group-hover:animate-pulse"></div>
+        <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-pink-300 rounded-full opacity-60 group-hover:animate-bounce"></div>
+    </div>
+    <span>TanishaReads</span>
+  </Link>
+</div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
