@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "../utils/axiosInstance";
+import { toast } from "react-hot-toast";
 
 const Feedback = () => {
   const [formData, setFormData] = useState({
@@ -21,12 +23,14 @@ const Feedback = () => {
     setLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      alert("Feedback submitted successfully!");
+      const res = await axios.post("/api/feedback", formData);
+      toast.success(res.data.message || "Feedback submitted!");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
-      alert("Something went wrong. Please try again.");
+      const msg =
+        error.response?.data?.message ||
+        "Something went wrong. Please try again.";
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -51,7 +55,7 @@ const Feedback = () => {
 
           {/* Form */}
           <div className="p-8">
-            <div className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Field */}
               <div>
                 <label className="block text-sm font-medium text-purple-200 mb-3">
@@ -120,7 +124,6 @@ const Feedback = () => {
               <div className="pt-6 flex justify-center">
                 <button
                   type="submit"
-                  onClick={handleSubmit}
                   disabled={loading}
                   className="px-10 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 disabled:from-purple-600/50 disabled:to-indigo-600/50 text-white font-semibold rounded-xl shadow-lg hover:shadow-purple-500/25 transition-all duration-200 disabled:cursor-not-allowed flex items-center justify-center gap-3 group min-w-[200px]"
                 >
@@ -131,15 +134,15 @@ const Feedback = () => {
                     </>
                   ) : (
                     <>
-                      <svg className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 group-hover:scale-110 cursor-pointer transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                       </svg>
-                      <span>Submit Feedback</span>
+                      <span className="cursor-pointer">Submit Feedback</span>
                     </>
                   )}
                 </button>
               </div>
-            </div>
+            </form>
           </div>
 
           {/* Footer */}
