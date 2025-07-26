@@ -122,7 +122,7 @@ const BookDetails = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Cover Image */}
             <div className="relative overflow-hidden bg-black/30">
-              <div className="aspect-[3/4] lg:aspect-auto lg:h-full relative">
+              <div className="aspect-[4/3] sm:aspect-[3/2] md:aspect-[5/3] lg:aspect-auto lg:h-full relative">
                 <img
                   src={book.coverImage?.url || "/api/placeholder/400/600"}
                   alt={book.title}
