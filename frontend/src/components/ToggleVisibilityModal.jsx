@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
 import axios from "../utils/axiosInstance";
 
 const ToggleVisibilityModal = ({ book, isOpen, onClose, onToggled }) => {

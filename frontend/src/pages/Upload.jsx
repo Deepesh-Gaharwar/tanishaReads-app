@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "../utils/axiosInstance";
 import { useSelector } from "react-redux";
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Upload } from "lucide-react";
 
@@ -59,7 +59,7 @@ const UploadBook = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.success("Book uploaded successfully!");
+      toast.info("Book uploaded successfully!");
       navigate("/stats");
     } catch (err) {
       toast.error(err.response?.data?.message || "Upload failed");

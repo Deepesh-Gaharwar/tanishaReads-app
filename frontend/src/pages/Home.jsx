@@ -51,7 +51,7 @@ const Home = () => {
       <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 flex justify-center items-center" aria-live="polite" role="status">
         <div className="flex flex-col items-center space-y-4">
           <Loader className="w-12 h-12 animate-spin text-purple-300" />
-          <span className="text-purple-200 text-lg font-medium">Loading books...</span>
+          <span className="text-purple-200 text-lg font-medium">Loading your Experience...</span>
         </div>
       </div>
     );
@@ -77,7 +77,7 @@ const Home = () => {
               key={g}
               onClick={() => setGenre(g)}
               className={`
-                px-6 py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 transform hover:scale-105
+                px-6 py-3 cursor-pointer rounded-full font-medium text-sm sm:text-base transition-all duration-300 transform hover:scale-105
                 ${genre === g 
                   ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg shadow-purple-500/25" 
                   : "bg-white/10 backdrop-blur-sm text-purple-200 border border-purple-400/30 hover:bg-white/20 hover:text-white"

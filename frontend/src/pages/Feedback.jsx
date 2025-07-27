@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "../utils/axiosInstance";
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const Feedback = () => {
   const [formData, setFormData] = useState({
@@ -24,7 +24,7 @@ const Feedback = () => {
 
     try {
       const res = await axios.post("/api/feedback", formData);
-      toast.success(res.data.message || "Feedback submitted!");
+      toast.info(res.data.message || "Feedback submitted!");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       const msg =

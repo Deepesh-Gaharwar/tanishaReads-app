@@ -1,6 +1,6 @@
 import React from "react";
 import { Dialog } from "@headlessui/react";
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
 import axios from "../utils/axiosInstance";
 
 const DeleteConfirmModal = ({ book, isOpen, onClose, onDeleted }) => {

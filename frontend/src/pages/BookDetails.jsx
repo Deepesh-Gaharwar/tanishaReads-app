@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../utils/axiosInstance";
 import { Download, Maximize, ExternalLink } from "lucide-react";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const BookDetails = () => {
   const { id } = useParams();

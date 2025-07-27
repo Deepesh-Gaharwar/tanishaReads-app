@@ -13,11 +13,14 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch(removeUser());
-    toast.success("✅ Admin logged out!", {
+    toast.info("Admin logged out Successfully!", {
       position: "top-right",
       autoClose: 3000,
     });
-    navigate("/");
+    // Wait 100ms to let the toast show up before navigation
+    setTimeout(() => {
+      navigate("/");
+    }, 100);
   };
 
   const toggleMobileMenu = () => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../utils/axiosInstance";
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const BookModal = ({ modal, setModal, refresh }) => {
   const { isOpen, type, book } = modal;
