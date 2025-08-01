@@ -42,7 +42,7 @@ const Login = () => {
 
       const { token, admin } = response.data.data;
       dispatch(addUser({ token, admin }));
-      toast.success("Login Successful!");
+      toast.success("Admin Logged in successfully!");
       navigate("/");
     } catch (error) {
       setErrors({ general: error.response?.data?.message || "Login failed. Please try again." });

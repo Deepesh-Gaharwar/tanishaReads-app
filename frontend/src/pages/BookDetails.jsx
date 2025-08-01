@@ -23,27 +23,27 @@ const BookDetails = () => {
     }
   };
 
-  const handleDownload = async () => {
-    try {
-      const res = await axios.get(`/api/books/${id}/download`, {
-        responseType: "blob",
-      });
+  // const handleDownload = async () => {
+  //   try {
+  //     const res = await axios.get(`/api/books/${id}/download`, {
+  //       responseType: "blob",
+  //     });
 
-      // Create blob URL and auto-download
-      const url = window.URL.createObjectURL(new Blob([res.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", `${book.title || "book"}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
+  //     // Create blob URL and auto-download
+  //     const url = window.URL.createObjectURL(new Blob([res.data]));
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     link.setAttribute("download", `${book.title || "book"}.pdf`);
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     link.remove();
 
-      toast.success("Download started");
-    } catch (error) {
-      toast.error("Download failed");
-      console.error(error);
-    }
-  };
+  //     toast.success("Download started");
+  //   } catch (error) {
+  //     toast.error("Download failed");
+  //     console.error(error);
+  //   }
+  // };
 
   const openInNewTab = () => {
     if (book?.pdfFile?.url) {
@@ -160,14 +160,14 @@ const BookDetails = () => {
               )}
 
               {/* Download Button */}
-              <button
+              {/* <button
                 onClick={handleDownload}
                 className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-200 flex items-center justify-center gap-3 group"
                 aria-label={`Download PDF of ${book.title}`}
               >
                 <Download className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
                 Download PDF
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

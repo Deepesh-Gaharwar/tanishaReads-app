@@ -1,40 +1,40 @@
 import React from "react";
 import { Eye, Download, User, Star } from "lucide-react";
 import { Link } from "react-router-dom";
-import axios from "../utils/axiosInstance";
+// import axios from "../utils/axiosInstance";
 
 const BookCardPublic = ({ book }) => {
   const genres = book.genre ? [book.genre] : [];
 
-  const downloadFile = async (e) => {
-    e.preventDefault();
+  // const downloadFile = async (e) => {
+  //   e.preventDefault();
 
-    try {
-      const res = await axios.get(`/api/books/${book._id}/download`, {
-        responseType: "blob",
-      });
+  //   try {
+  //     const res = await axios.get(`/api/books/${book._id}/download`, {
+  //       responseType: "blob",
+  //     });
 
-      // Get filename from content-disposition header or use fallback
-      const disposition = res.headers["content-disposition"];
-      const match = disposition?.match(/filename="?(.+)"?/);
-      const filename = match?.[1] || `${book.title}.pdf`;
+  //     // Get filename from content-disposition header or use fallback
+  //     const disposition = res.headers["content-disposition"];
+  //     const match = disposition?.match(/filename="?(.+)"?/);
+  //     const filename = match?.[1] || `${book.title}.pdf`;
 
-      const url = window.URL.createObjectURL(new Blob([res.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", filename);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("❌ Download failed:", error?.message || error);
-    }
-  };
+  //     const url = window.URL.createObjectURL(new Blob([res.data]));
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     link.setAttribute("download", filename);
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     link.remove();
+  //     window.URL.revokeObjectURL(url);
+  //   } catch (error) {
+  //     console.error("❌ Download failed:", error?.message || error);
+  //   }
+  // };
 
   // Mock rating and downloads for display (you can replace with actual data)
-  const rating = (typeof book.rating === 'object' ? book.rating?.average : book.rating) || 4.8;
-  const downloads = book.downloads || Math.floor(Math.random() * 500) + 50;
+ // const rating = (typeof book.rating === 'object' ? book.rating?.average : book.rating) || 4.8;
+ // const downloads = book.downloads || Math.floor(Math.random() * 500) + 50;
 
   return (
     <div className="bg-gradient-to-br from-purple-900 via-purple-800 to-purple-900 rounded-2xl shadow-2xl overflow-hidden hover:shadow-purple-500/25 transition-all duration-300 hover:scale-[1.02] border border-purple-700/30 max-w-sm mx-auto">
@@ -78,7 +78,7 @@ const BookCardPublic = ({ book }) => {
         </div>
 
         {/* Stats */}
-        <div className="flex items-center justify-between mb-6">
+        {/* <div className="flex items-center justify-between mb-6">
           <div className="flex items-center text-yellow-400">
             <Star className="w-4 h-4 mr-1 fill-current" />
             <span className="text-sm font-medium">{rating}</span>
@@ -87,7 +87,7 @@ const BookCardPublic = ({ book }) => {
             <Download className="w-4 h-4 mr-1" />
             <span className="text-sm">{downloads}</span>
           </div>
-        </div>
+        </div> */}
 
         {/* Action Buttons */}
         <div className="flex gap-2">
@@ -99,13 +99,13 @@ const BookCardPublic = ({ book }) => {
             <Eye className="w-4 h-4" />
             <span>Read</span>
           </Link>
-          <button
+          {/* <button
             onClick={downloadFile}
             className="bg-purple-600/50 hover:bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 border border-purple-500/30 shadow-lg"
             aria-label={`Download ${book.title}`}
           >
             <Download className="w-4 h-4" />
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

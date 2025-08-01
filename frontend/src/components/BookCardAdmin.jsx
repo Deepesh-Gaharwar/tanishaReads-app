@@ -21,7 +21,7 @@ const BookCardAdmin = ({
 }) => {
   const [isTogglingVisibility, setIsTogglingVisibility] = useState(false);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
-  const [isDownloading, setIsDownloading] = useState(false);
+ // const [isDownloading, setIsDownloading] = useState(false);
 
   const handleToggleVisibility = async () => {
     if (isTogglingVisibility) return;
@@ -49,17 +49,17 @@ const BookCardAdmin = ({
     }
   };
 
-  const handleDownload = async () => {
-    if (isDownloading) return;
-    setIsDownloading(true);
-    try {
-      await onDownload(book);
-    } catch (error) {
-      console.error("Download failed:", error);
-    } finally {
-      setIsDownloading(false);
-    }
-  };
+  // const handleDownload = async () => {
+  //   if (isDownloading) return;
+  //   setIsDownloading(true);
+  //   try {
+  //     await onDownload(book);
+  //   } catch (error) {
+  //     console.error("Download failed:", error);
+  //   } finally {
+  //     setIsDownloading(false);
+  //   }
+  // };
 
   const getStatusBadgeClass = (status) => {
     switch (status) {
@@ -116,7 +116,7 @@ const BookCardAdmin = ({
 
         <div className="flex flex-wrap gap-2">
           <button
-            className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
+            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
             onClick={() => onView(book)}
             aria-label={`View ${book.title}`}
           >
@@ -124,7 +124,7 @@ const BookCardAdmin = ({
           </button>
           
           <button
-            className="bg-purple-700 hover:bg-purple-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
+            className="bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
             onClick={() => onEdit(book)}
             aria-label={`Edit ${book.title}`}
           >
@@ -132,7 +132,7 @@ const BookCardAdmin = ({
           </button>
           
           <button
-            className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
+            className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
             onClick={() => onDelete(book)}
             aria-label={`Delete ${book.title}`}
           >
@@ -140,7 +140,7 @@ const BookCardAdmin = ({
           </button>
 
           <button
-            className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
+            className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
             onClick={handleToggleVisibility}
             disabled={isTogglingVisibility}
             aria-label="Toggle Visibility"
@@ -153,7 +153,7 @@ const BookCardAdmin = ({
           {book.status === "draft" && (
             <>
               <button
-                className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
+                className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
                 onClick={() => handleUpdateStatus("published")}
                 disabled={isUpdatingStatus}
                 aria-label="Publish"
@@ -161,7 +161,7 @@ const BookCardAdmin = ({
                 <CheckCheck className="w-4 h-4" /> Publish
               </button>
               <button
-                className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
+                className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
                 onClick={() => handleUpdateStatus("archived")}
                 disabled={isUpdatingStatus}
                 aria-label="Archive"
@@ -174,7 +174,7 @@ const BookCardAdmin = ({
           {book.status === "published" && (
             <>
               <button
-                className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
+                className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
                 onClick={() => handleUpdateStatus("draft")}
                 disabled={isUpdatingStatus}
                 aria-label="Mark Draft"
@@ -182,7 +182,7 @@ const BookCardAdmin = ({
                 <CheckCheck className="w-4 h-4" /> Mark Draft
               </button>
               <button
-                className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
+                className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
                 onClick={() => handleUpdateStatus("archived")}
                 disabled={isUpdatingStatus}
                 aria-label="Archive"
@@ -195,7 +195,7 @@ const BookCardAdmin = ({
           {book.status === "archived" && (
             <>
               <button
-                className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
+                className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
                 onClick={() => handleUpdateStatus("published")}
                 disabled={isUpdatingStatus}
                 aria-label="Publish"
@@ -203,7 +203,7 @@ const BookCardAdmin = ({
                 <CheckCheck className="w-4 h-4" /> Publish
               </button>
               <button
-                className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
+                className="bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg"
                 onClick={() => handleUpdateStatus("draft")}
                 disabled={isUpdatingStatus}
                 aria-label="Mark Draft"
@@ -213,14 +213,14 @@ const BookCardAdmin = ({
             </>
           )}
 
-          <button
-            className="bg-purple-600/50 hover:bg-purple-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 border border-purple-500/30"
+          {/* <button
+            className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 shadow-lg border border-purple-400/30"
             onClick={handleDownload}
             aria-label={`Download ${book.title}`}
             disabled={isDownloading}
           >
             <Download className="w-4 h-4" /> Download
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

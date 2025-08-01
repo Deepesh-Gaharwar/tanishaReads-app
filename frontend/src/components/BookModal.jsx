@@ -78,24 +78,24 @@ const BookModal = ({ modal, setModal, refresh }) => {
       }
   };
 
-  const handleDownload = async () => {
-    try {
-      const res = await axios.get(`/api/books/${book._id}/download`);
-      const { downloadUrl, filename } = res.data.data;
+  // const handleDownload = async () => {
+  //   try {
+  //     const res = await axios.get(`/api/books/${book._id}/download`);
+  //     const { downloadUrl, filename } = res.data.data;
 
-      const link = document.createElement("a");
-      link.href = downloadUrl;
-      link.setAttribute("download", filename || `${book.title}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
+  //     const link = document.createElement("a");
+  //     link.href = downloadUrl;
+  //     link.setAttribute("download", filename || `${book.title}.pdf`);
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     link.remove();
 
-      toast.success("Download started");
-    } catch (error) {
-      toast.error("Download failed");
-      console.error(error);
-    }
-  };
+  //     toast.success("Download started");
+  //   } catch (error) {
+  //     toast.error("Download failed");
+  //     console.error(error);
+  //   }
+  // };
 
   if (!isOpen || !book) return null;
 
@@ -134,13 +134,13 @@ const BookModal = ({ modal, setModal, refresh }) => {
                   <p className="text-white font-medium">{book.isPublic ? "Visible" : "Hidden"}</p>
                 </div>
               </div>
-              <button
+              {/* <button
                 onClick={handleDownload}
                 className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-4 py-3 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-pink-500/25"
                 aria-label={`Download ${book.title}`}
               >
                 Download PDF
-              </button>
+              </button> */}
             </div>
           )}
 
