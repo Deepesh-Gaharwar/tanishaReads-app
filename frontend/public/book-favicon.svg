@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <!-- Exact gradient from your code: from-purple-400 via-pink-400 to-purple-600 -->
+    <linearGradient id="bookGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a855f7"/>
+      <stop offset="50%" style="stop-color:#f472b6"/>
+      <stop offset="100%" style="stop-color:#9333ea"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded square background (matching rounded-lg) -->
+  <rect x="2" y="2" width="28" height="28" rx="4" ry="4" fill="url(#bookGradient)"/>
+  
+  <!-- Book shield icon (scaled and positioned to match your original) -->
+  <g transform="translate(16,16) scale(0.6)">
+    <!-- Shield path -->
+    <path d="M0-14L-10-7v10c0 5.55 3.84 9.74 10 11 6.16-1.26 10-5.45 10-11V-7l-10-7z" fill="white"/>
+    <!-- Book lines -->
+    <path d="M-4-1h8M-4 3h5" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Top-right sparkle (yellow-300) -->
+  <circle cx="27" cy="5" r="1.5" fill="#fde047" opacity="0.75"/>
+  
+  <!-- Bottom-left sparkle (pink-300) -->
+  <circle cx="5" cy="27" r="1" fill="#f9a8d4" opacity="0.6"/>
+</svg>
