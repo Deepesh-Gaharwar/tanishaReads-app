@@ -15,7 +15,10 @@ const Home = () => {
 
   const fetchBooks = async () => {
     try {
-      const { data } = await axios.get("/api/books");
+      const { data } = await axios.get("/api/books", {
+        withCredentials: true,
+      });
+
       const booksArray = data?.data?.books || data?.books || [];
 
       // ✅ Filter only public and published books
