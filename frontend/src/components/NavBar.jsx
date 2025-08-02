@@ -211,7 +211,7 @@ const NavBar = () => {
       {/* Mobile Sidebar Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden cursor-pointer"
+          className="fixed inset-0 z-40  bg-opacity-50 md:hidden cursor-pointer"
           onClick={closeMobileMenu}
         />
       )}
