@@ -31,11 +31,11 @@ const ReadBookPage = () => {
       if (res.data && res.data.data && res.data.data.book) {
         setBook(res.data.data.book);
       } else {
-        toast.error("Book data not found");
+        toast.error("Article data not found");
       }
     } catch (err) {
       toast.error("Failed to load book");
-      console.error(err);
+      // console.error(err);
     } finally {
       setLoading(false);
     }
@@ -60,7 +60,7 @@ const ReadBookPage = () => {
       <div className="flex justify-center items-center h-screen bg-gradient-to-br from-purple-950 via-purple-900 to-purple-800" role="status" aria-live="polite">
         <div className="flex flex-col items-center space-y-4">
           <Loader className="animate-spin h-12 w-12 text-purple-300" />
-          <span className="text-purple-200 text-lg font-medium">Loading book...</span>
+          <span className="text-purple-200 text-lg font-medium">Loading Article...</span>
         </div>
       </div>
     );
@@ -70,8 +70,8 @@ const ReadBookPage = () => {
     return (
       <div className="flex justify-center items-center h-screen bg-gradient-to-br from-purple-950 via-purple-900 to-purple-800" role="alert">
         <div className="text-center p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-          <h2 className="text-2xl font-serif text-white mb-2">Book not found</h2>
-          <p className="text-purple-200">The requested book could not be loaded.</p>
+          <h2 className="text-2xl font-serif text-white mb-2">Article not found</h2>
+          <p className="text-purple-200">The requested Article could not be loaded.</p>
         </div>
       </div>
     );

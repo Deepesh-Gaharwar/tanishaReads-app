@@ -24,7 +24,7 @@ const StatusUpdateModal = ({ book, isOpen, onClose, onStatusUpdated }) => {
       if (onStatusUpdated) onStatusUpdated();
     } catch (err) {
       toast.error("Failed to update status");
-      console.error(err);
+      // console.error(err);
     } finally {
       setLoading(false);
     }
@@ -50,7 +50,7 @@ const StatusUpdateModal = ({ book, isOpen, onClose, onStatusUpdated }) => {
           <div className="px-6 pt-6 pb-4 border-b border-purple-600/30">
             <Dialog.Title className="text-xl font-bold text-white flex items-center gap-3">
               <div className="w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
-              Update Book Status
+              Update Article Status
             </Dialog.Title>
           </div>
 
@@ -62,7 +62,7 @@ const StatusUpdateModal = ({ book, isOpen, onClose, onStatusUpdated }) => {
                 <span className="font-bold text-white bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                   {book.status === "published" ? "mark as Draft" : "Publish"}
                 </span>{" "}
-                the book{" "}
+                the Article{" "}
                 <span className="font-bold text-white">"{book.title}"</span>?
               </p>
             </div>

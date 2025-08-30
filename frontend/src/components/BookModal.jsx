@@ -34,11 +34,11 @@ const BookModal = ({ modal, setModal, refresh }) => {
   const handleUpdate = async () => {
     try {
       await axios.put(`/api/books/${book._id}`, formData);
-      toast.success("Book updated successfully");
+      toast.success("Article updated successfully");
       refresh();
       closeModal();
     } catch (err) {
-      console.error(err);
+     // console.error(err);
       toast.error("Update failed");
     }
   };
@@ -46,7 +46,7 @@ const BookModal = ({ modal, setModal, refresh }) => {
   const handleDelete = async () => {
     try {
       await axios.delete(`/api/books/${book._id}`);
-      toast.success("Book deleted successfully");
+      toast.success("Article deleted successfully");
       refresh();
       closeModal();
     } catch (err) {
@@ -103,7 +103,7 @@ const BookModal = ({ modal, setModal, refresh }) => {
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-gradient-to-br from-purple-900 via-purple-800 to-purple-900 rounded-2xl shadow-2xl border border-purple-700/30 w-full max-w-md max-h-[80vh] overflow-y-auto">
         <div className="p-6">
-          <h3 className="font-bold text-xl text-white capitalize mb-6">{type} Book</h3>
+          <h3 className="font-bold text-xl text-white capitalize mb-6">{type} Article</h3>
 
           {/* View */}
           {type === "view" && (

@@ -1,4 +1,3 @@
-
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const cloudinary = require('cloudinary').v2;
@@ -15,19 +14,18 @@ const coverImageStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'book-covers',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'avif'],
     transformation: [
       { width: 800, height: 1200, crop: 'limit', quality: 'auto' }
     ]
   }
 });
 
-// Storage configuration for PDF files
+// Storage configuration for PDF files (allowing all formats)
 const pdfStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'book-pdfs',
-    allowed_formats: ['pdf'],
     resource_type: 'auto'
   }
 });
@@ -39,15 +37,11 @@ const fileFilter = (req, file, cb) => {
     if (file.mimetype.startsWith('image/')) {
       cb(null, true);
     } else {
-      cb(new Error('Cover image must be an image file (jpg, jpeg, png, webp)'), false);
+      cb(new Error('Cover image must be an image file (jpg, jpeg, png, webp, avif)'), false);
     }
   } else if (file.fieldname === 'pdfFile') {
-    // Check if file is a PDF
-    if (file.mimetype === 'application/pdf') {
-      cb(null, true);
-    } else {
-      cb(new Error('Book file must be a PDF'), false);
-    }
+    // Allow any file type for the book file
+    cb(null, true);
   } else {
     cb(new Error('Unexpected field'), false);
   }
@@ -112,7 +106,7 @@ const handleFileUploads = (req, res, next) => {
             {
               resource_type :'auto',
               folder: 'book-covers',
-              allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+              allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'avif'],
               transformation: [
                 { width: 800, height: 1200, crop: 'limit', quality: 'auto' }
               ]
@@ -129,14 +123,14 @@ const handleFileUploads = (req, res, next) => {
         req.files.coverImage[0].filename = coverImageResult.public_id;
       }
 
-      // Upload PDF to Cloudinary
+      // Upload book file to Cloudinary (any format)
       if (req.files.pdfFile) {
         const pdfResult = await new Promise((resolve, reject) => {
           const uploadStream = cloudinary.uploader.upload_stream(
             {
               folder: 'book-pdfs',
-              resource_type: 'auto',
-              allowed_formats: ['pdf']
+              resource_type: 'auto'
+              // No allowed_formats means any format is accepted
             },
             (error, result) => {
               if (error) reject(error);
@@ -167,7 +161,7 @@ const profileImageStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'admin-profiles',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'avif'],
     transformation: [
       { width: 400, height: 400, crop: 'fill', gravity: 'face', quality: 'auto' }
     ]

@@ -37,12 +37,12 @@ const EditBookModal = ({ book, isOpen, onClose, onUpdated }) => {
         genre: genre.trim(),
         description: description.trim(),
       });
-      toast.success("Book updated successfully");
+      toast.success("Article updated successfully");
       onUpdated();
       onClose();
     } catch (err) {
       toast.error("Failed to update book");
-      console.error(err);
+      // console.error(err);
     } finally {
       setLoading(false);
     }
@@ -53,7 +53,7 @@ const EditBookModal = ({ book, isOpen, onClose, onUpdated }) => {
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <Dialog.Panel className="w-full max-w-lg bg-gradient-to-br from-purple-900 via-purple-800 to-purple-900 p-6 rounded-2xl shadow-2xl border border-purple-700/30 max-h-[90vh] overflow-y-auto">
-          <Dialog.Title className="text-xl font-bold mb-6 text-white">Edit Book</Dialog.Title>
+          <Dialog.Title className="text-xl font-bold mb-6 text-white">Edit Article</Dialog.Title>
 
           <div className="space-y-4">
             <div className="space-y-2">

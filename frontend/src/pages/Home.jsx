@@ -98,7 +98,7 @@ const Home = () => {
         {filtered.length === 0 ? (
           <div className="text-center py-16">
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-md mx-auto border border-purple-400/20">
-              <p className="text-purple-200 text-lg">No writings found in this category.</p>
+              <p className="text-purple-200 text-lg">No Articles found in this category.</p>
               <p className="text-purple-300 text-sm mt-2">Try selecting a different genre or check back later.</p>
             </div>
           </div>

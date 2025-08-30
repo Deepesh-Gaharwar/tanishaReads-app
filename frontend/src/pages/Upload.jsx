@@ -34,7 +34,7 @@ const UploadBook = () => {
     e.preventDefault();
 
     if (!formData.cover || !formData.file) {
-      toast.error("Please upload both cover and PDF file.");
+      toast.error("Please upload both cover and Article file.");
       return;
     }
     if (!formData.title.trim() || !formData.author.trim() || !formData.genre.trim()) {
@@ -59,11 +59,11 @@ const UploadBook = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.info("Book uploaded successfully!");
+      toast.info("Article uploaded successfully!");
       navigate("/stats");
     } catch (err) {
       toast.error(err.response?.data?.message || "Upload failed");
-      console.error(err);
+      // console.error(err);
     } finally {
       setLoading(false);
     }
@@ -76,7 +76,7 @@ const UploadBook = () => {
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 flex items-center justify-center gap-3">
   <Upload className="w-8 h-8 md:w-10 md:h-10 flex-shrink-0" />
-  <span className="text-center">Upload Your New Work Here</span>
+  <span className="text-center">Upload Your New Article Here</span>
 </h2>
 <p className="text-purple-200 text-center">Share your literary work with the world</p>
         </div>
@@ -86,16 +86,16 @@ const UploadBook = () => {
           <form onSubmit={handleSubmit} className="space-y-6" encType="multipart/form-data" noValidate>
             {/* Title Input */}
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-purple-200">Book Title *</label>
+              <label className="block text-sm font-medium text-purple-200">Article Title *</label>
               <input
                 type="text"
                 name="title"
-                placeholder="Enter your book title"
+                placeholder="Enter your Article title"
                 value={formData.title}
                 onChange={handleChange}
                 className="w-full px-4 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
                 required
-                aria-label="Book Title"
+                aria-label="Article Title"
               />
             </div>
 
@@ -157,14 +157,14 @@ const UploadBook = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all resize-none"
                 rows={4}
-                aria-label="Book Description"
+                aria-label="Article Description"
               ></textarea>
             </div>
 
             {/* File Uploads */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-purple-200">Cover Image *</label>
+                <label className="block text-sm font-medium text-purple-200">Article Image *</label>
                 <div className="relative">
                   <input
                     type="file"
@@ -173,7 +173,7 @@ const UploadBook = () => {
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-red-600 file:text-white hover:file:bg-red-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
                     required
-                    aria-label="Upload Cover Image"
+                    aria-label="Upload Article Image"
                   />
                 </div>
                 {formData.cover && (
@@ -184,7 +184,7 @@ const UploadBook = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-purple-200">PDF File *</label>
+                <label className="block text-sm font-medium text-purple-200">Article File *</label>
                 <div className="relative">
                   <input
                     type="file"
@@ -193,7 +193,7 @@ const UploadBook = () => {
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-red-600 file:text-white hover:file:bg-red-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
                     required
-                    aria-label="Upload PDF File"
+                    aria-label="Upload Article File"
                   />
                 </div>
                 {formData.file && (
@@ -217,7 +217,7 @@ const UploadBook = () => {
                   Uploading...
                 </div>
               ) : (
-                "Upload Book"
+                "Upload Article"
               )}
             </button>
           </form>

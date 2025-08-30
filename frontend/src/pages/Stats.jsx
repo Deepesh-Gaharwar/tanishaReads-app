@@ -37,7 +37,7 @@ const Stats = () => {
         totalPages: data?.data?.pagination?.totalPages || 1,
       });
     } catch (err) {
-      console.error("Error fetching books:", err);
+      // console.error("Error fetching books:", err);
     } finally {
       setLoading(false);
     }
@@ -90,7 +90,7 @@ const Stats = () => {
             <Shield className="w-8 h-8 md:w-10 md:h-10 text-purple-300" />
             <h2 className="text-3xl md:text-4xl font-bold text-white">Admin Dashboard</h2>
           </div>
-          <p className="text-purple-200">Manage your books and track performance</p>
+          <p className="text-purple-200">Manage your Article and track performance</p>
         </div>
 
         {/* Filters */}
@@ -149,7 +149,7 @@ const Stats = () => {
         <div className="mb-8">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-xl">
             <div className="text-center">
-              <div className="text-purple-200 text-sm font-medium mb-1">Total Work Uploads</div>
+              <div className="text-purple-200 text-sm font-medium mb-1">Total Articles Upload</div>
               <div className="text-3xl font-bold text-white">{books.length}</div>
             </div>
           </div>
@@ -160,12 +160,12 @@ const Stats = () => {
           <div className="flex justify-center items-center py-12">
             <div className="flex flex-col items-center space-y-4">
               <Loader className="w-12 h-12 animate-spin text-purple-300" />
-              <span className="text-purple-200 text-lg font-medium">Loading books...</span>
+              <span className="text-purple-200 text-lg font-medium">Loading Articles...</span>
             </div>
           </div>
         ) : books.length === 0 ? (
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-12 border border-white/20 text-center">
-            <p className="text-purple-200 text-lg">No books found.</p>
+            <p className="text-purple-200 text-lg">No Articles found.</p>
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-8">

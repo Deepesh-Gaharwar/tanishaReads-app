@@ -7,12 +7,12 @@ const DeleteConfirmModal = ({ book, isOpen, onClose, onDeleted }) => {
   const handleDelete = async () => {
     try {
       await axios.delete(`/api/books/${book._id}`);
-      toast.success("Book deleted successfully");
+      toast.success("Article deleted successfully");
       onClose();
       onDeleted();
     } catch (err) {
       toast.error("Failed to delete book");
-      console.error(err);
+     // console.error(err);
     }
   };
 
