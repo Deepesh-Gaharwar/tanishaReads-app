@@ -31,16 +31,20 @@ TanishaReads is a full-stack digital library application designed to showcase li
 
 <table>
   <tr>
-    <td><img src="./public/home.png" alt="Home Page" width="100%"/></td>
-    <td><img src="./public/book_details.png" alt="Book Details Page" width="100%"/></td>
+    <td><img src="./frontend/public/Home.png" alt="Home Page" width="100%"/></td>
+    <td><img src="./frontend/public/Book_details1.png" alt="Book Details 1 Page" width="100%"/></td>
   </tr>
   <tr>
-    <td><img src="./public/admin_dashboard.png" alt="Admin Dashboard" width="100%"/></td>
-    <td><img src="./public/admin_login.png" alt="Admin Login Page" width="100%"/></td>
+    <td><img src="./frontend/public/Book_details2.png" alt="Book Details 2 Page" width="100%"/></td>
+    <td><img src="./frontend/public/Admin_login.png" alt="Admin Login Page" width="100%"/></td>
   </tr>
   <tr>
-    <td><img src="./public/upload_form.png" alt="Upload Form" width="100%"/></td>
-    <td><img src="./public/feedback_page.png" alt="Feedback Page" width="100%"/></td>
+    <td><img src="./frontend/public/Admin_dashboard1.png" alt="Admin Dashboard 1" width="100%"/></td>
+    <td><img src="./frontend/public/Admin_dashboard2.png" alt="Admin Dashboard 2" width="100%"/></td>
+  </tr>
+  <tr>
+    <td><img src="./frontend/public/Upload_Page.png" alt="Upload Form" width="100%"/></td>
+    <td><img src="./frontend/public/Feedback_page.png" alt="Feedback Page" width="100%"/></td>
   </tr>
 </table>
 

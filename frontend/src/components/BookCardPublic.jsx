@@ -39,12 +39,25 @@ const BookCardPublic = ({ book }) => {
   return (
     <div className="bg-gradient-to-br from-purple-900 via-purple-800 to-purple-900 rounded-2xl shadow-2xl overflow-hidden hover:shadow-purple-500/25 transition-all duration-300 hover:scale-[1.02] border border-purple-700/30 max-w-sm mx-auto">
       {/* Cover Image */}
-      <figure className="relative h-56 overflow-hidden">
-        <img
-          src={book.coverImage?.url || ""}
-          alt={book.title}
-          className="object-cover h-full w-full"
-        />
+      <figure className="relative h-56 overflow-hidden bg-gray-200">
+        {book.coverImage?.url ? (
+          <img
+            src={book.coverImage.url}
+            alt={book.title}
+            className="object-cover h-full w-full"
+            onError={(e) => {
+              e.target.style.display = 'none';
+              e.target.parentNode.classList.add('bg-gradient-to-br', 'from-purple-400', 'to-purple-600');
+            }}
+          />
+        ) : (
+          <div className="h-full w-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+            <div className="text-white text-center p-4">
+              <div className="text-lg font-bold mb-1">{book.title}</div>
+              <div className="text-sm opacity-80">{book.author || "The Writer"}</div>
+            </div>
+          </div>
+        )}
         <div className="absolute top-3 right-3">
           <span className="bg-purple-600/80 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-medium">
             {book.genre || "Fiction"}
