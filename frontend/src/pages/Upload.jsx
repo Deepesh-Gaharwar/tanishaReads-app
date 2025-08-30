@@ -76,7 +76,7 @@ const UploadBook = () => {
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 flex items-center justify-center gap-3">
   <Upload className="w-8 h-8 md:w-10 md:h-10 flex-shrink-0" />
-  <span className="text-center">Upload Your New Article Here</span>
+  <span className="text-center">Upload Your New Articles Here</span>
 </h2>
 <p className="text-purple-200 text-center">Share your literary work with the world</p>
         </div>
@@ -152,7 +152,7 @@ const UploadBook = () => {
               <label className="block text-sm font-medium text-purple-200">Description</label>
               <textarea
                 name="description"
-                placeholder="Write a short description of your book..."
+                placeholder="Write a short description of your Article..."
                 value={formData.description}
                 onChange={handleChange}
                 className="w-full px-4 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white placeholder-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all resize-none"

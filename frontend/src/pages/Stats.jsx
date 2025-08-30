@@ -90,7 +90,7 @@ const Stats = () => {
             <Shield className="w-8 h-8 md:w-10 md:h-10 text-purple-300" />
             <h2 className="text-3xl md:text-4xl font-bold text-white">Admin Dashboard</h2>
           </div>
-          <p className="text-purple-200">Manage your Article and track performance</p>
+          <p className="text-purple-200">Manage your Articles and track performance</p>
         </div>
 
         {/* Filters */}
