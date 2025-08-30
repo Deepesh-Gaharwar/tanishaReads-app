@@ -37,13 +37,13 @@ const BookCardPublic = ({ book }) => {
  // const downloads = book.downloads || Math.floor(Math.random() * 500) + 50;
 
   return (
-    <div className="bg-gradient-to-br from-purple-900 via-purple-800 to-purple-900 rounded-2xl shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 hover:scale-[1.02] border border-purple-700/30 max-w-sm mx-auto p-4 sm:p-6">
+    <div className="bg-gradient-to-br from-purple-900 via-purple-800 to-purple-900 rounded-2xl shadow-2xl overflow-hidden hover:shadow-purple-500/25 transition-all duration-300 hover:scale-[1.02] border border-purple-700/30 max-w-sm mx-auto">
       {/* Cover Image */}
-      <figure className="mb-4 relative">
+      <figure className="relative h-56 overflow-hidden">
         <img
           src={book.coverImage?.url || ""}
           alt={book.title}
-          className="h-48 object-cover w-full rounded-xl shadow-lg"
+          className="object-cover h-full w-full"
         />
         <div className="absolute top-3 right-3">
           <span className="bg-purple-600/80 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-medium">
@@ -53,6 +53,7 @@ const BookCardPublic = ({ book }) => {
       </figure>
 
       {/* Content */}
+      <div className="p-4 sm:p-6">
         {/* Title */}
         <h2 className="text-lg sm:text-xl font-bold text-white mb-2 line-clamp-2 leading-tight">
           {book.title}
@@ -107,6 +108,7 @@ const BookCardPublic = ({ book }) => {
           </button> */}
         </div>
       </div>
+    </div>
   );
 };
 
