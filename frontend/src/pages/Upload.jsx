@@ -189,7 +189,7 @@ const UploadBook = () => {
                   <input
                     type="file"
                     name="file"
-                    accept="application/pdf"
+                    accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp, image/avif "
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-red-600 file:text-white hover:file:bg-red-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
                     required
