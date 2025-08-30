@@ -56,7 +56,7 @@ const UploadBook = () => {
       await axios.post("/api/books", data, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
         },
       });
       toast.info("Article uploaded successfully!");
